@@ -9,11 +9,14 @@ export default class Hero {
   matches: Match<>;
   matchIndex: number;
 
-  constructor() {
+  constructor(heroId = null) {
     this.playerIndex = 0;
     this.players = [];
     this.matches = [];
     this.matchIndex = 0;
+    if (heroId) {
+      this.id = heroId;
+    }
   }
 
   getNextMatch() {

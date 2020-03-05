@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import DataProvider from './services/DataProvider/DataProvider';
+
 
 const App: () => React$Node = () => {
   return (

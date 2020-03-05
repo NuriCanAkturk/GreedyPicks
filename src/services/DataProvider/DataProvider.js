@@ -9,6 +9,10 @@ export default class DataProvider {
     this.heroes = [];
   }
 
+  getHeroImage(id) {
+    return this.heroes.find(x => x.id == id).image_url;
+  }
+
   getHeroList() {
     return new Promise((resolve, reject) => {
       if (this.heroes.length > 0) {
@@ -26,9 +30,9 @@ export default class DataProvider {
     });
   }
 
-  fetchMoreGames(hero) {
+  fetchMoreGames(hero, patch) {
     return this.dotabuff.fetchPlayers(hero).then(() => {
-      return this.dotabuff.fetchPlayerGames(hero);
+      return this.dotabuff.fetchPlayerGames(hero, patch);
     });
   }
 
@@ -36,11 +40,11 @@ export default class DataProvider {
     return this.dotabuff.fetchMatchDetails(match);
   }
 
-  fetchNextGame(heroId) {
+  fetchNextGame(heroId, patch) {
     const hero = this.heroes.find(x => x.id == heroId);
     const match = hero.getNextMatch();
     if (match == null) {
-      return this.fetchMoreGames(hero)
+      return this.fetchMoreGames(hero, patch)
         .then(() => {
           return hero.getNextMatch();
         })

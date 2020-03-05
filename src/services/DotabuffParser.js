@@ -1,6 +1,7 @@
 import {parse} from 'node-html-parser';
 import Hero from './DataProvider/Hero';
 import Match from './DataProvider/Match';
+import Pick from './DataProvider/Pick';
 
 export default class DotabuffParser {
   getHeroes() {
@@ -18,6 +19,14 @@ export default class DotabuffParser {
           try {
             hero.id = node.rawAttributes.href.split('heroes/')[1];
             hero.name = node.childNodes[0].childNodes[0].childNodes[0].rawText;
+            const div = node.querySelector('div');
+            hero.image_url =
+              'https://www.dotabuff.com/' +
+              div.rawAttributes.style
+                .replace(/&#47;/g, '/')
+                .split('url(')[1]
+                .split(')')[0];
+
             heroes.push(hero);
           } catch (e) {
             // not hero
@@ -48,13 +57,15 @@ export default class DotabuffParser {
       });
   }
 
-  fetchPlayerGames(hero: Hero) {
+  fetchPlayerGames(hero: Hero, patch) {
     return fetch(
       'https://www.dotabuff.com/players/' +
         hero.getNextPlayerId() +
         '/matches?hero=' +
         hero.id +
-        '&date=patch_7.24&lobby_type=ranked_matchmaking&enhance=overview',
+        '&date=patch_' +
+        patch +
+        '&lobby_type=ranked_matchmaking&enhance=overview',
     )
       .then(response => {
         return response.text();
@@ -90,7 +101,6 @@ export default class DotabuffParser {
     if (match.fetched) {
       return match;
     }
-
     return fetch('https://www.dotabuff.com/matches/' + match.id)
       .then(response => {
         return response.text();
@@ -98,11 +108,50 @@ export default class DotabuffParser {
       .then(html => {
         const doc = parse(html);
         const radiant = doc.querySelector('section.radiant table tbody');
-        console.log('radiant', radiant);
-        for(var i in radiant.childNodes){
-          const item = radiant.childNodes[i];
-          console.log(item);
+        const dire = doc.querySelector('section.dire table tbody');
+
+        const parseHeroes = teamElement => {
+          const picks = [];
+          for (var i in teamElement.childNodes) {
+            const item = teamElement.childNodes[i];
+            const cellAnchor = item.querySelector('.cell-fill-image a');
+            const role = item.querySelector('.role-icon');
+            const lane = item.querySelector('.lane-icon');
+            const heroId = cellAnchor.rawAttrs
+              .split('/heroes/')[1]
+              .replace('"', '');
+            const hero = new Hero(heroId);
+            const pick = new Pick(hero);
+            try {
+              pick.lane = lane.rawAttributes.title;
+              pick.role = role.rawAttributes.title;
+            } catch (e) {
+              //
+            }
+            picks.push(pick);
+          }
+          return picks;
+        };
+
+        const result = doc.querySelector('.match-result');
+        if (result.rawAttributes.class.indexOf('radiant') > -1) {
+          match.winner = 'radiant';
+        } else {
+          match.winner = 'dire';
         }
+
+        const header = doc.querySelector('.header-content-secondary');
+        match.skillBracket =
+          header.childNodes[0].childNodes[0].childNodes[0].rawText;
+        match.gameMode =
+          header.childNodes[2].childNodes[0].childNodes[0].rawText;
+        match.region = header.childNodes[3].childNodes[0].childNodes[0].rawText;
+        match.duration =
+          header.childNodes[4].childNodes[0].childNodes[0].rawText;
+        match.dateText =
+          header.childNodes[5].childNodes[0].childNodes[0].rawText;
+        match.dire = parseHeroes(dire);
+        match.radiant = parseHeroes(radiant);
         match.fetched = true;
         return match;
       });

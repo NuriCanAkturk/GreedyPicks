@@ -1,5 +1,5 @@
 import React from 'react';
-import HeroItem from './HeroItem';
+import GameItem from './GameItem';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 
 export default props => {
@@ -7,14 +7,7 @@ export default props => {
     <View style={{flex: 1}}>
       <FlatList
         data={props.data}
-        renderItem={({item}) => (
-          <HeroItem
-            onSelect={hero => {
-              props.onSelect(hero);
-            }}
-            hero={item}
-          />
-        )}
+        renderItem={({item}) => <GameItem game={item} onSelected={(game) => props.onSelected(game) } />}
       />
     </View>
   );

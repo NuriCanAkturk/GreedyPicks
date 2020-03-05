@@ -1,17 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Linking} from 'react-native';
 import DataProvider from 'GreedyPicks/src/services/DataProvider/';
+import AsyncStorage from '@react-native-community/async-storage';
+import Game from 'GreedyPicks/src/components/Game';
 
 export default ({route}) => {
-  const heroId = route.params.heroId;
+  const heroId = route.params.hero.id;
   const [game, setGame] = useState(null);
   const [isRateLimited, setRateLimit] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [answer, setAnswer] = useState(null);
   useEffect(() => {
-    DataProvider.fetchNextGame(heroId)
+    DataProvider.fetchNextGame(heroId, route.params.patch)
       .then(val => {
         setGame(val);
       })
       .catch(e => {
+        console.log('error', e);
         if (e == 'rate-limit') {
           setRateLimit(true);
         }
@@ -30,14 +35,26 @@ export default ({route}) => {
   if (game == null) {
     return <Text>Loading...</Text>;
   }
+
   return (
-    <View>
-      <Text>asdf</Text>
-      <Text>{game.id}</Text>
-      <Text>{game.fetched ? 'fetched' : 'not fetched'}</Text>
+    <View style={{flex:1}}>
+      <Game
+        game={game}
+        onAnswer={answer => {
+          setAnswer(answer);
+          setShowResults(true);
+        }}
+        showResults={showResults}
+        hero={route.params.hero}
+        answer={answer}
+        initialSaveStatus={'not-saved'}
+      />
       <TouchableOpacity
         onPress={() => {
-          DataProvider.fetchNextGame(heroId).then(val => {
+          setGame(null);
+          setAnswer(null);
+          setShowResults(false);
+          DataProvider.fetchNextGame(heroId, route.params.patch).then(val => {
             setGame(val);
           });
         }}>
