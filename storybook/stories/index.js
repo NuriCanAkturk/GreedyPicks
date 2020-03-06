@@ -12,8 +12,13 @@ import ViewGame from 'GreedyPicks/src/components/screens/ViewGame';
 import HeroList from 'GreedyPicks/src/components/HeroList';
 import GameList from 'GreedyPicks/src/components/GameList';
 import Game from 'GreedyPicks/src/components/Game';
+import Welcome from 'GreedyPicks/src/components/Welcome';
+
 import samples from 'GreedyPicks/storybook/stories/samples';
 
+storiesOf('Welcome', module)
+  .add('First launch', () => <Welcome games={[]} />)
+  .add('If there are saved games', () => <Welcome games={[1,2,3]} />);
 
 storiesOf('SelectHero', module)
   .add('Select a hero', () => (
