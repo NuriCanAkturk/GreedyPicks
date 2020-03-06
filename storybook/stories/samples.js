@@ -1194,14 +1194,14 @@ const samples = {
   game: {
     game: {
       fetched: true,
-      id: '5275442848',
-      date: '2020-03-05T05:32:41.000Z',
+      id: '5270290940',
+      date: '2020-03-01T23:16:21.000Z',
       winner: 'radiant',
       skillBracket: 'Very High Skill',
       gameMode: 'All Pick',
-      region: 'US East',
-      duration: '22:38',
-      dateText: '2020-03-05',
+      region: 'Europe West',
+      duration: '30:05',
+      dateText: '2020-03-01',
       dire: [
         {
           hero: {
@@ -1209,8 +1209,10 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'necrophos',
+            id: 'phantom-lancer',
           },
+          lane: 'Safe Lane',
+          role: 'Core Role',
         },
         {
           hero: {
@@ -1218,8 +1220,10 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'lifestealer',
+            id: 'snapfire',
           },
+          lane: 'Off Lane',
+          role: 'Core Role',
         },
         {
           hero: {
@@ -1227,8 +1231,10 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'meepo',
+            id: 'grimstroke',
           },
+          lane: 'Safe Lane',
+          role: 'Support Role',
         },
         {
           hero: {
@@ -1236,8 +1242,10 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'earthshaker',
+            id: 'clockwerk',
           },
+          lane: 'Off Lane',
+          role: 'Core Role',
         },
         {
           hero: {
@@ -1245,8 +1253,10 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'lich',
+            id: 'outworld-devourer',
           },
+          lane: 'Mid Lane',
+          role: 'Core Role',
         },
       ],
       radiant: [
@@ -1256,8 +1266,10 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'disruptor',
+            id: 'void-spirit',
           },
+          lane: 'Mid Lane',
+          role: 'Core Role',
         },
         {
           hero: {
@@ -1265,8 +1277,32 @@ const samples = {
             players: [],
             matches: [],
             matchIndex: 0,
-            id: 'monkey-king',
+            id: 'pudge',
           },
+          lane: 'Roaming',
+          role: 'Support Role',
+        },
+        {
+          hero: {
+            playerIndex: 0,
+            players: [],
+            matches: [],
+            matchIndex: 0,
+            id: 'lich',
+          },
+          lane: 'Safe Lane',
+          role: 'Support Role',
+        },
+        {
+          hero: {
+            playerIndex: 0,
+            players: [],
+            matches: [],
+            matchIndex: 0,
+            id: 'ember-spirit',
+          },
+          lane: 'Safe Lane',
+          role: 'Core Role',
         },
         {
           hero: {
@@ -1276,24 +1312,8 @@ const samples = {
             matchIndex: 0,
             id: 'axe',
           },
-        },
-        {
-          hero: {
-            playerIndex: 0,
-            players: [],
-            matches: [],
-            matchIndex: 0,
-            id: 'nyx-assassin',
-          },
-        },
-        {
-          hero: {
-            playerIndex: 0,
-            players: [],
-            matches: [],
-            matchIndex: 0,
-            id: 'gyrocopter',
-          },
+          lane: 'Off Lane',
+          role: 'Core Role',
         },
       ],
     },

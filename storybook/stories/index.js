@@ -5,11 +5,9 @@ import {storiesOf} from '@storybook/react-native';
 import {action} from '@storybook/addon-actions';
 import {linkTo} from '@storybook/addon-links';
 
-import Button from './Button';
-import CenterView from './CenterView';
+
 import SelectHero from 'GreedyPicks/src/components/screens/SelectHero';
 import GameBoard from 'GreedyPicks/src/components/screens/GameBoard';
-import HeaderRight from 'GreedyPicks/src/components/HeaderRight';
 import SavedGames from 'GreedyPicks/src/components/screens/SavedGames';
 import ViewGame from 'GreedyPicks/src/components/screens/ViewGame';
 import HeroList from 'GreedyPicks/src/components/HeroList';
@@ -35,7 +33,7 @@ storiesOf('SelectHero', module)
   ));
 
 storiesOf('GameBoard', module)
-  .add('Game loading', () => (
+  .add('Gameboard', () => (
     <GameBoard
       navigation={{}}
       route={{
@@ -116,17 +114,4 @@ storiesOf('GameBoard', module)
       answer={null}
       initialSaveStatus={'saving'}
     />
-  ));
-
-storiesOf('Button', module)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
-  .add('with text', () => (
-    <Button onPress={action('clicked-text')}>
-      <Text>Hello Button</Text>
-    </Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onPress={action('clicked-emoji')}>
-      <Text>😀 😎 👍 💯</Text>
-    </Button>
   ));
