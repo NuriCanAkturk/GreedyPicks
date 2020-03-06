@@ -14,7 +14,6 @@ import GameList from 'GreedyPicks/src/components/GameList';
 import Game from 'GreedyPicks/src/components/Game';
 import samples from 'GreedyPicks/storybook/stories/samples';
 
-console.log('samples', samples);
 
 storiesOf('SelectHero', module)
   .add('Select a hero', () => (

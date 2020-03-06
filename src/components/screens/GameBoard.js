@@ -15,12 +15,10 @@ let interstitialLoading = true;
 const interstitial = InterstitialAd.createForAdRequest(adUnitId);
 
 interstitial.onAdEvent(type => {
-  console.log('interstitial ad event', type);
   if (type === AdEventType.ERROR || type === AdEventType.LOADED) {
     interstitialLoading = false;
   }
   if (type === AdEventType.OPENED) {
-    console.log('load new one!');
     interstitial.load();
   }
 });

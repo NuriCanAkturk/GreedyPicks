@@ -4,7 +4,6 @@ import {FlatList, Text, View, TouchableOpacity, Platform} from 'react-native';
 import {BannerAd, BannerAdSize, TestIds} from '@react-native-firebase/admob';
 
 export default props => {
-    console.log('data', JSON.stringify(props.data));
   return (
     <View style={{flex: 1}}>
       {props.data.length == 0 && (

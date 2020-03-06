@@ -5,10 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Game from 'GreedyPicks/src/components/Game';
 
 export default props => {
-    console.log('navigation', JSON.stringify(props.navigation));
-    console.log('route', JSON.stringify(props.route));
-
-    const game = props.route.params.game;
+  const game = props.route.params.game;
   return (
     <View>
       <Game
