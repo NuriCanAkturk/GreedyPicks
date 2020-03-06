@@ -68,9 +68,6 @@ export default ({route}) => {
           setAnswer(answer);
           setShowResults(true);
           setGameCounter(gameCounter + 1);
-          console.log('gameCounter', gameCounter);
-          console.log('interstitial.loaded', interstitial.loaded);
-          console.log('interstitialLoading', interstitialLoading);
           if (interstitial.loaded) {
             if (gameCounter > 0 && gameCounter % 5 == 0) {
               interstitialLoading = false;
@@ -87,10 +84,7 @@ export default ({route}) => {
         answer={answer}
         initialSaveStatus={'not-saved'}
       />
-      <View
-          style={{
-
-          }}
+      <TouchableOpacity
         onPress={() => {
           setGame(null);
           setAnswer(null);
@@ -100,7 +94,7 @@ export default ({route}) => {
           });
         }}>
         <Text style={{color: '#ffffff', fontSize: 12}}>Next</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

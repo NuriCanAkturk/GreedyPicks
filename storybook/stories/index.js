@@ -5,12 +5,12 @@ import {storiesOf} from '@storybook/react-native';
 import {action} from '@storybook/addon-actions';
 import {linkTo} from '@storybook/addon-links';
 
-
 import SelectHero from 'GreedyPicks/src/components/screens/SelectHero';
 import GameBoard from 'GreedyPicks/src/components/screens/GameBoard';
 import SavedGames from 'GreedyPicks/src/components/screens/SavedGames';
 import ViewGame from 'GreedyPicks/src/components/screens/ViewGame';
 import HeroList from 'GreedyPicks/src/components/HeroList';
+import GameList from 'GreedyPicks/src/components/GameList';
 import Game from 'GreedyPicks/src/components/Game';
 import samples from 'GreedyPicks/storybook/stories/samples';
 
@@ -114,4 +114,16 @@ storiesOf('GameBoard', module)
       answer={null}
       initialSaveStatus={'saving'}
     />
+  ));
+
+storiesOf('ViewGame', module).add('View saved game', () => (
+  <ViewGame route={samples.viewGameProps.route} />
+));
+
+storiesOf('SavedGames', module)
+  .add('Saved game list', () => (
+    <GameList data={samples.gameList.data} onSelected={game => {}} />
+  ))
+  .add('Saved game list no data', () => (
+    <GameList data={[]} onSelected={game => {}} />
   ));
