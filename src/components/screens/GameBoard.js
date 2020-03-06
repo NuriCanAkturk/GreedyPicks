@@ -61,7 +61,7 @@ export default ({route}) => {
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: '#000000'}}>
       <Game
         game={game}
         onAnswer={answer => {
@@ -87,7 +87,10 @@ export default ({route}) => {
         answer={answer}
         initialSaveStatus={'not-saved'}
       />
-      <TouchableOpacity
+      <View
+          style={{
+
+          }}
         onPress={() => {
           setGame(null);
           setAnswer(null);
@@ -96,8 +99,8 @@ export default ({route}) => {
             setGame(val);
           });
         }}>
-        <Text>Next</Text>
-      </TouchableOpacity>
+        <Text style={{color: '#ffffff', fontSize: 12}}>Next</Text>
+      </View>
     </View>
   );
 };
