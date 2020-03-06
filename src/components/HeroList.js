@@ -1,10 +1,10 @@
 import React from 'react';
 import HeroItem from './HeroItem';
-import {FlatList, Text, View, TouchableOpacity} from 'react-native';
+import {FlatList, ImageBackground, View, StyleSheet} from 'react-native';
 
 export default props => {
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, padding: 15, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)'}}>
       <FlatList
         data={props.data}
         renderItem={({item}) => (
@@ -19,3 +19,9 @@ export default props => {
     </View>
   );
 };
+
+
+const styles = StyleSheet.create(
+{
+
+});
