@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, Linking} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Linking,
+  ImageBackground,
+} from 'react-native';
 import DataProvider from 'GreedyPicks/src/services/DataProvider/';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -17,17 +24,16 @@ export default ({
       <View
         key={'row' + i}
         style={{
+          padding: 10,
           alignItems: 'center',
           justifyContent: 'center',
-          borderBottomWidth: 2,
-          borderColor: 'white',
         }}>
         <Image
           source={{uri: DataProvider.getHeroImage(pick.hero.id)}}
-          style={{width: 40, height: 40}}
+          style={{width: 40, height: 40, marginBottom: 10, borderRadius: 100,}}
         />
-        <Text>{pick.lane}</Text>
-        <Text>{pick.role}</Text>
+        <Text style={{color: '#ffffff', fontSize: 12}}>{pick.lane}</Text>
+        <Text style={{color: '#ffffff', fontSize: 12, opacity: .8}}>{pick.role}</Text>
       </View>
     );
   };
@@ -44,32 +50,34 @@ export default ({
 
   return (
     <View style={{flexDirection: 'column'}}>
-      <Text>Match ID: {game.id}</Text>
-      <Text>Date: {game.dateText}</Text>
-      <Text>Duration: {game.duration}</Text>
-      <Text>Region: {game.region}</Text>
-      <Text>Game Mode: {game.gameMode}</Text>
-      <View style={{flexDirection: 'row'}}>
+      <Text style={{color: '#ffffff'}}>Match ID: {game.id}</Text>
+      <Text style={{color: '#ffffff'}}>Date: {game.dateText}</Text>
+      <Text style={{color: '#ffffff'}}>Duration: {game.duration}</Text>
+      <Text style={{color: '#ffffff'}}>Region: {game.region}</Text>
+      <Text style={{color: '#ffffff'}}>Game Mode: {game.gameMode}</Text>
+      <ImageBackground
+        source={require('../assets/images/23768.jpg')}
+        style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 15}}>
         <TouchableOpacity
           style={{flex: 1}}
           onPress={() => {
             onAnswer('radiant');
           }}>
-          <View style={{backgroundColor: 'green'}}>{radiantRows}</View>
+          <View>{radiantRows}</View>
         </TouchableOpacity>
         <TouchableOpacity
           style={{flex: 1}}
           onPress={() => {
             onAnswer('dire');
           }}>
-          <View style={{backgroundColor: 'red'}}>{direRows}</View>
+          <View>{direRows}</View>
         </TouchableOpacity>
-      </View>
+      </ImageBackground>
       {showResults && (
         <View>
-          <Text>results</Text>
-          <Text>{game.winner == answer ? 'CORRECT' : 'INCORRECT'}</Text>
-          <Text>{game.winner == 'dire' ? 'Dire' : 'Radiant'} Victory</Text>
+          <Text style={{color: '#ffffff'}}>results</Text>
+          <Text style={{color: '#ffffff'}}>{game.winner == answer ? 'CORRECT' : 'INCORRECT'}</Text>
+          <Text style={{color: '#ffffff'}}>{game.winner == 'dire' ? 'Dire' : 'Radiant'} Victory</Text>
           {saveStatus == 'not-saved' && (
             <TouchableOpacity
               onPress={() => {
