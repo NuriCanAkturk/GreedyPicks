@@ -1,8 +1,31 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, Linking} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import DataProvider from 'GreedyPicks/src/services/DataProvider/';
 import AsyncStorage from '@react-native-community/async-storage';
 import Game from 'GreedyPicks/src/components/Game';
+import admob from '@react-native-firebase/admob';
+import {InterstitialAd, AdEventType} from '@react-native-firebase/admob';
+
+const adUnitId = Platform.select({
+  ios: 'ca-app-pub-7590562592808907/4769992983',
+  android: 'ca-app-pub-7590562592808907/2335401337',
+});
+
+let interstitialLoading = true;
+const interstitial = InterstitialAd.createForAdRequest(adUnitId);
+
+interstitial.onAdEvent(type => {
+  console.log('interstitial ad event', type);
+  if (type === AdEventType.ERROR || type === AdEventType.LOADED) {
+    interstitialLoading = false;
+  }
+  if (type === AdEventType.OPENED) {
+    console.log('load new one!');
+    interstitial.load();
+  }
+});
+
+interstitial.load();
 
 export default ({route}) => {
   const heroId = route.params.hero.id;
@@ -10,6 +33,7 @@ export default ({route}) => {
   const [isRateLimited, setRateLimit] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [answer, setAnswer] = useState(null);
+  const [gameCounter, setGameCounter] = useState(0);
   useEffect(() => {
     DataProvider.fetchNextGame(heroId, route.params.patch)
       .then(val => {
@@ -37,12 +61,26 @@ export default ({route}) => {
   }
 
   return (
-    <View style={{flex:1}}>
+    <View style={{flex: 1}}>
       <Game
         game={game}
         onAnswer={answer => {
           setAnswer(answer);
           setShowResults(true);
+          setGameCounter(gameCounter + 1);
+          console.log('gameCounter', gameCounter);
+          console.log('interstitial.loaded', interstitial.loaded);
+          console.log('interstitialLoading', interstitialLoading);
+          if (interstitial.loaded) {
+            if (gameCounter > 0 && gameCounter % 5 == 0) {
+              interstitialLoading = false;
+              interstitial.show();
+            }
+          } else {
+            if (!interstitialLoading) {
+              interstitial.load();
+            }
+          }
         }}
         showResults={showResults}
         hero={route.params.hero}
