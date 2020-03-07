@@ -14,7 +14,6 @@ import GameList from 'GreedyPicks/src/components/GameList';
 import Game from 'GreedyPicks/src/components/Game';
 import samples from 'GreedyPicks/storybook/stories/samples';
 
-
 storiesOf('SelectHero', module)
   .add('Select a hero', () => (
     <SelectHero
@@ -60,7 +59,7 @@ storiesOf('GameBoard', module)
       onAnswer={answer => {
         console.log(answer);
       }}
-      showResults={true}
+      showResults={false}
       hero={samples.game.hero}
       answer={null}
       initialSaveStatus={'not-saved'}
