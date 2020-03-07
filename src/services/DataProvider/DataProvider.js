@@ -10,7 +10,8 @@ export default class DataProvider {
   }
 
   getHeroImage(id) {
-    return this.heroes.find(x => x.id == id).image_url;
+    const hero = this.heroes.find(x => x.id == id);
+    return hero ? hero.image_url : '';
   }
 
   getHeroList() {
